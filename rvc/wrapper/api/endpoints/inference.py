@@ -12,6 +12,10 @@ from rvc.modules.vc.modules import VC
 import glob
 import os
 
+import logging
+
+logger: logging.Logger = logging.getLogger(__name__)
+
 router = APIRouter()
 from dotenv import load_dotenv
 
@@ -44,6 +48,8 @@ def inference(
     protect: float = Form(0.33),
 ):
     print(res_type)
+    logger.info(f"Arguments: {locals()}")
+
     vc = VC()
     vc.get_vc(modelpath)
     tgt_sr, audio_opt, times, _ = vc.vc_inference(
