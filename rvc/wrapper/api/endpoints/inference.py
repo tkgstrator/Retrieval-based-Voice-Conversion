@@ -29,19 +29,19 @@ def inference(
             for file in glob.glob(f"{os.getenv('weight_root')}/*")
         ],
     ),
-    res_type: str = Query("blob", enum=["blob", "json"]),
-    sid: int = 0,
-    f0_up_key: int = 0,
-    f0_method: str = Query(
+    res_type: str = Form("blob", enum=["blob", "json"]),
+    sid: int = Form(0),
+    f0_up_key: int = Form(0),
+    f0_method: str = Form(
         "rmvpe", enum=["pm", "harvest", "dio", "rmvpe", "rmvpe_gpu"]
     ),
     f0_file: Path | None = None,
     index_file: Path | None = None,
-    index_rate: float = 0.75,
-    filter_radius: int = 3,
-    resample_sr: int = 0,
-    rms_mix_rate: float = 0.25,
-    protect: float = 0.33,
+    index_rate: float = Form(0.75),
+    filter_radius: int = Form(3),
+    resample_sr: int = Form(0),
+    rms_mix_rate: float = Form(0.25),
+    protect: float = Form(0.33),
 ):
     print(res_type)
     vc = VC()
