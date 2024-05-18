@@ -37,7 +37,7 @@ api = ["uvicorn", "fastapi"]
 rvc = "rvc.wrapper.cli.cli:main"
 
 [tool.poe.tasks]
-rvc-api = "uvicorn rvc.wrapper.api.api:app --reload"
+rvc-api = "uvicorn rvc.wrapper.api.api:app --host 0.0.0.0 --port 8000 --reload"
 
 [build-system]
 requires = ["poetry-core"]
