@@ -1,4 +1,5 @@
 /.venv
+/assets
 dist
 __pycache__/
 *.py[cod]
