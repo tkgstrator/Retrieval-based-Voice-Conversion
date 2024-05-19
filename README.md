@@ -140,3 +140,32 @@ curl -X 'POST' \
       -F 'modelpath={model.pth}' \
       -F 'input={input audio path}'
 ```
+
+### Docker Usage
+
+Build and run via script:
+
+```bash
+./docker-run.sh
+```
+
+**Or** use manually:
+
+1. Build:
+
+   ```bash
+   docker build -t "rvc" .
+   ```
+
+2. Run:
+
+   ```bash
+   docker run -it \
+     -p 8000:8000 \
+     -v "${PWD}/assets/weights:/weights:ro" \
+     -v "${PWD}/assets/indices:/indices:ro" \
+     -v "${PWD}/assets/audios:/audios:ro" \
+     "rvc"
+   ```
+
+Notice assumption that weights, indices and input audios are stored in `current-directory/assets`
