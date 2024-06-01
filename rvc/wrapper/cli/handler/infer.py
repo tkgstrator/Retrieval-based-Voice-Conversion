@@ -4,7 +4,6 @@ from pathlib import Path
 import click
 from dotenv import load_dotenv
 from scipy.io import wavfile
-import torch
 
 logging.getLogger("numba").setLevel(logging.WARNING)
 
@@ -130,6 +129,4 @@ def infer(
         wavfile.write(outputpath, tgt_sr, audio_opt)
         click.echo(times)
         click.echo(f"Finish inference. Check {outputpath}")
-
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+    return tgt_sr, audio_opt, times
