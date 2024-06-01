@@ -38,8 +38,5 @@ from rvc.modules.uvr5.modules import UVR
     help="output Format",
 )
 def uvr(modelname, inputpath, outputpath, format):
-    uvr_module = UVR()
-    uvr_module.uvr_wrapper(
-        inputpath, outputpath, model_name=modelname, export_format=format
-    )
+    UVR()(inputpath, outputpath, model_name=modelname, export_format=format)
     click.echo(f"Finish uvr5. Check {outputpath}")

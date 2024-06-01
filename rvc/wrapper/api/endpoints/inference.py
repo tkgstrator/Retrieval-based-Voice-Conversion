@@ -11,6 +11,7 @@ from base64 import b64encode
 from rvc.modules.vc.modules import VC
 import glob
 import os
+import torch
 
 router = APIRouter()
 from dotenv import load_dotenv
@@ -43,7 +44,6 @@ def inference(
     rms_mix_rate: float = 0.25,
     protect: float = 0.33,
 ):
-    print(res_type)
     vc = VC()
     vc.get_vc(modelpath)
     tgt_sr, audio_opt, times, _ = vc.vc_inference(
@@ -61,6 +61,10 @@ def inference(
     )
     wavfile.write(wv := BytesIO(), tgt_sr, audio_opt)
     print(times)
+
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     if res_type == "blob":
         return responses.StreamingResponse(
             wv,

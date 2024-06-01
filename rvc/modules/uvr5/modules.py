@@ -20,7 +20,7 @@ class UVR:
         self.need_reformat: bool = True
         self.config: Config = Config()
 
-    def uvr_wrapper(
+    def __call__(
         self,
         audio_path: Path,
         agg: int = 10,
