@@ -22,7 +22,7 @@ Un framework de conversión de voz basado en VITS y fácil de usar.<br><br>
 
 ## Instalación y uso
 
-### Configuración estándar
+### Instalación estándar
 
 Primero, cree un directorio en su proyecto. La carpeta `assets` contendrá los modelos necesarios para la inferencia y el entrenamiento, y la carpeta `results` contendrá los resultados del entrenamiento.
 
@@ -34,9 +34,9 @@ Esto creará la carpeta `assets` y `.env` en su directorio de trabajo.
 > [!WARNING]
 > El directorio debe de estar vacío o sin una carpeta de assets.
 
-### Configuración personalizada
+### Instalación personalizada
 
-Si ya ha descargado modelos o desea cambiar estas configuraciones, edite el archivo `.env`.
+Si ya has descargado modelos o deseas cambiar estas configuraciones, edita el archivo `.env`.
 Si aún no tienes el archivo `.env`,
 
 ```sh
@@ -44,21 +44,21 @@ rvc env create
 ```
 puedes crearlo.
 
-Además, para descargar un modelo, puede utilizar
+Además, para descargar un modelo, puedes utilizar
 
 ```sh
 rvc dlmodel
 ```
 o
-```sh
-rvc dlmodel {carpeta_de_descarga}
+```
+rvc dlmodel {download_dir}
 ```
 
 Finalmente, especifique la ubicación del modelo en el archivo env y estará listo.
 
 
 
-### Uso de la biblioteca
+### Uso de la librería
 
 #### Inferir un audio
 ```python
@@ -72,15 +72,15 @@ from rvc.modules.vc.modules import VC
 
 def main():
       vc = VC()
-      vc.get_vc("{modelo.pth}")
+      vc.get_vc("{model.pth}")
       tgt_sr, audio_opt, times, _ = vc.vc_inference(
-            1, Path("{audio_de_entrada}")
+            1, Path("{InputAudio}")
       )
-      wavfile.write("{audio_de_salida}", tgt_sr, audio_opt)
+      wavfile.write("{OutputAudio}", tgt_sr, audio_opt)
 
 
 if __name__ == "__main__":
-      load_dotenv("{ruta_del_env}")
+      load_dotenv("{envPath}")
       main()
 
 ```
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 #### Inferir un audio
 
 ```sh
-rvc infer -m {modelo.pth} -i {audio_de_entrada.wav} -o {salida.wav}
+rvc infer -m {model.pth} -i {input.wav} -o {output.wav}
 ```
 
 | opción        | flag&nbsp; | tipo         | valor por defecto | descipción                                                                                                                                                                                                                                    |
@@ -110,7 +110,7 @@ rvc infer -m {modelo.pth} -i {audio_de_entrada.wav} -o {salida.wav}
 | protect       | -p         | float        | 0.33          | Proteja las consonantes sordas y los sonidos respiratorios para evitar artefactos como el desgarro en la música electrónica. Establezca en 0.5 para desactivarlo. Disminuya el valor para aumentar la protección, pero puede reducir la precisión de la indexación                                 |
 
 ### Uso de la API
-Primero, inicie el servidor.
+Primero, inicia el servidor.
 ```sh
 rvc-api
 ```
@@ -131,7 +131,7 @@ curl -X 'POST' \
       -F 'input={input audio path}'
 ```
 
-##### Obtener como json(incluir tiempo)
+##### Obtener como json (incluir tiempo)
 ```sh
 curl -X 'POST' \
       'http://127.0.0.1:8000/inference?res_type=json' \
@@ -140,3 +140,32 @@ curl -X 'POST' \
       -F 'modelpath={model.pth}' \
       -F 'input={input audio path}'
 ```
+
+### Uso con Docker
+
+Compilar y ejecutar usando el script:
+
+```bash
+./docker-run.sh
+```
+
+**O** usar manuálmente:
+
+1. Compilar:
+
+   ```bash
+   docker build -t "rvc" .
+   ```
+
+2. Ejecutar:
+
+   ```bash
+   docker run -it \
+     -p 8000:8000 \
+     -v "${PWD}/assets/weights:/weights:ro" \
+     -v "${PWD}/assets/indices:/indices:ro" \
+     -v "${PWD}/assets/audios:/audios:ro" \
+     "rvc"
+   ```
+
+Recuerda que los pesos (weights), índices y audios de entrada se almacenan en `directorio-actual/assets`
