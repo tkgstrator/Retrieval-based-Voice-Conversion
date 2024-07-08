@@ -1,9 +1,11 @@
 FROM alpine:3.19.1 as assets
 
-RUN apk add --update \
-      bash \
-      git \
-      git-lfs
+RUN apk add \
+      --update \
+      --no-cache \
+        bash \
+        git \
+        git-lfs
 
 COPY --chmod=755 ./assets-download.sh /assets-download.sh
 
@@ -16,20 +18,26 @@ SHELL [ "/bin/bash", "-c" ]
 RUN apt update && \
     apt install -y \
       libsndfile1 \
-      libsndfile1-dev
+      libsndfile1-dev && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=assets /assets /assets
 
 WORKDIR /app
 
-RUN pip install "poetry==1.7.1"
-
 COPY ./pyproject.toml .
 
-RUN poetry install
+RUN pip install \
+      --no-cache-dir \
+      "poetry==1.7.1" && \
+    poetry config virtualenvs.create false && \
+    poetry install \
+      --no-interaction \
+      --no-root && \
+    poetry cache clear --all .
 
 COPY ./rvc ./rvc
-
 COPY ./.env-docker ./.env
 
 CMD [ "poetry", "run", "poe", "rvc-api" ]

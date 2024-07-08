@@ -2,6 +2,12 @@
 #
 # Downloads required large files for RVC.
 
+function download() {
+  local path="$1"
+  echo "Downloading ${path}"
+  git lfs pull --include="${path}"
+}
+
 set -e
 
 REPO_FOLDER="VoiceConversionWebUI"
@@ -16,27 +22,31 @@ git clone https://huggingface.co/lj1995/VoiceConversionWebUI "${REPO_FOLDER}"
 
 pushd "${REPO_FOLDER}"
 
+git config advice.detachedHead false
+
 git checkout "${assets_commit_hash}"
 
 unset GIT_LFS_SKIP_SMUDGE
 unset GIT_CLONE_PROTECTION_ACTIVE
 
-git lfs pull --include="hubert_base.pt"
-git lfs pull --include="pretrained"
-git lfs pull --include="uvr5_weights"
-git lfs pull --include="rmvpe.pt"
-git lfs pull --include="rmvpe.onnx"
+download "hubert_base.pt"
+download "pretrained"
+download "uvr5_weights"
+download "rmvpe.pt"
+download "rmvpe.onnx"
+
+rm -rf .git
 
 popd
 
 mkdir -p "${assets_dir}"
 
-cp "${REPO_FOLDER}/hubert_base.pt" "${assets_dir}/hubert_base.pt"
+mv "${REPO_FOLDER}/hubert_base.pt" "${assets_dir}/hubert_base.pt"
 
 mkdir -p "${assets_dir}/rmvpe"
 
-cp "${REPO_FOLDER}/rmvpe.pt" "${assets_dir}/rmvpe/rmvpe.pt"
-cp "${REPO_FOLDER}/rmvpe.onnx" "${assets_dir}/rmvpe/rmvpe.onnx"
+mv "${REPO_FOLDER}/rmvpe.pt" "${assets_dir}/rmvpe/rmvpe.pt"
+mv "${REPO_FOLDER}/rmvpe.onnx" "${assets_dir}/rmvpe/rmvpe.onnx"
 
-cp -r "${REPO_FOLDER}/pretrained" "${assets_dir}/pretrained"
-cp -r "${REPO_FOLDER}/uvr5_weights" "${assets_dir}/uvr5_weights"
+mv "${REPO_FOLDER}/pretrained" "${assets_dir}/pretrained"
+mv "${REPO_FOLDER}/uvr5_weights" "${assets_dir}/uvr5_weights"
