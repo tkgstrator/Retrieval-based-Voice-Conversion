@@ -13,9 +13,6 @@ import glob
 import os
 
 router = APIRouter()
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 @router.post("/inference")

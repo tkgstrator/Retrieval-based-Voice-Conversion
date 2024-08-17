@@ -2,7 +2,6 @@ import logging
 from pathlib import Path
 
 import click
-from dotenv import load_dotenv
 from scipy.io import wavfile
 
 logging.getLogger("numba").setLevel(logging.WARNING)
@@ -109,7 +108,6 @@ def infer(
 ):
     from rvc.modules.vc.modules import VC
 
-    load_dotenv()
     vc = VC()
     vc.get_vc(modelpath)
     tgt_sr, audio_opt, times, _ = vc.vc_inference(

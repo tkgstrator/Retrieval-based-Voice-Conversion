@@ -64,7 +64,6 @@ Finalmente, especifique la ubicación del modelo en el archivo env y estará lis
 ```python
 from pathlib import Path
 
-from dotenv import load_dotenv
 from scipy.io import wavfile
 
 from rvc.modules.vc.modules import VC
@@ -80,7 +79,6 @@ def main():
 
 
 if __name__ == "__main__":
-      load_dotenv("{envPath}")
       main()
 
 ```
