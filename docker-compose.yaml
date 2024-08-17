@@ -8,7 +8,7 @@ services:
     environment:
       WEIGHT_ROOT: /weights
       WEIGHT_UVR5_ROOT: /assets/uvr5_weights
-      INDEX_ROOT: /index
+      INDEX_ROOT: /indices
       RMVPE_ROOT: /assets/rmvpe
       HURBERT_PATH: /assets/hubert_base.pt
       SAVE_UVR_PATH: /assets/uvr5_weights

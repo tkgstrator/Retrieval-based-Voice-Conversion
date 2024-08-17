@@ -1,0 +1,23 @@
+services:
+  rvc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      HURBERT_PATH: /assets/hubert_base.pt
+      INDEX_ROOT: /indices
+      PRETRAINED_MODEL: /assets/pretrained
+      RMVPE_ROOT: /assets/rmvpe
+      SAVE_UVR_PATH: /assets/uvr5_weights
+      SHA256_COMMIT_HASH: 88e42f0cb3662ddc0dd263a4814206ce96d53214
+      WEIGHT_ROOT: /weights
+      WEIGHT_UVR5_ROOT: /assets/uvr5_weights
+    volumes:
+      - ../:/home/vscode/app:cached
+      - node_modules:/home/bun/app/node_modules
+    stdin_open: true
+
+volumes:
+  node_modules:
