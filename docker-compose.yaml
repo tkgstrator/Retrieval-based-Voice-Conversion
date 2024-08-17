@@ -1,0 +1,19 @@
+services:
+  rvc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      WEIGHT_ROOT: /weights
+      WEIGHT_UVR5_ROOT: /assets/uvr5_weights
+      INDEX_ROOT: /index
+      RMVPE_ROOT: /assets/rmvpe
+      HURBERT_PATH: /assets/hubert_base.pt
+      SAVE_UVR_PATH: /assets/uvr5_weights
+      PRETRAINED_MODEL: /assets/pretrained
+    volumes:
+      - ./assets/weights:/weights:ro
+      - ./assets/indices:/indices:ro
+      - ./assets/audios:/audios:ro
