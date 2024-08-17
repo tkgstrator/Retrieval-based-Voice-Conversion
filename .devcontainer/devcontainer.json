@@ -44,7 +44,8 @@
         "ms-python.python",
         "ms-toolsai.jupyter",
         "ms-vscode.makefile-tools",
-        "tamasfe.even-better-toml"
+        "tamasfe.even-better-toml",
+        "ms-python.black-formatter"
       ],
       "settings": {
         "debug.internalConsoleOptions": "neverOpen",
@@ -57,7 +58,18 @@
         "files.watcherExclude": {
           "**/node_modules/**": true
         },
-        "scm.defaultViewMode": "tree"
+        "scm.defaultViewMode": "tree",
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit"
+          },
+          "editor.formatOnSave": true,
+          "black-formatter.args": [
+            "--line-length",
+            "120"
+          ]
+        }
       }
     }
   }
