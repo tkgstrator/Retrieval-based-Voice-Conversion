@@ -140,10 +140,10 @@ class Pipeline(object):
                 from rvc.lib.rmvpe import RMVPE
 
                 logger.info(
-                    "Loading rmvpe model,%s" % "%s/rmvpe.pt" % os.environ["rmvpe_root"]
+                    "Loading rmvpe model,%s" % "%s/rmvpe.pt" % os.environ["RMVPE_ROOT"]
                 )
                 self.model_rmvpe = RMVPE(
-                    "%s/rmvpe.pt" % os.environ["rmvpe_root"],
+                    "%s/rmvpe.pt" % os.environ["RMVPE_ROOT"],
                     is_half=self.is_half,
                     device=self.device,
                 )
