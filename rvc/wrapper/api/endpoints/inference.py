@@ -18,8 +18,7 @@ router = APIRouter()
 @router.post("/inference")
 def inference(
     input_audio: Path | UploadFile,
-    modelpath: Path
-    | UploadFile = Body(
+    modelpath: Path | UploadFile = Body(
         ...,
         enum=[
             os.path.basename(file)
