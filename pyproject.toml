@@ -28,6 +28,8 @@ uvicorn = "^0.26.0"
 fastapi = "^0.109.0"
 python-multipart = "^0.0.6"
 numba = "0.59.0rc1"
+wavfile = "^4.7.2"
+setuptools = "^72.2.0"
 
 [tool.poetry.extras]
 api = ["uvicorn", "fastapi"]
