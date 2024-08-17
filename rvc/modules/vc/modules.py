@@ -44,7 +44,7 @@ class VC:
             to_return_protect[1] if self.if_f0 != 0 and to_return_protect else 0.33,
         ]
 
-        person = sid if os.path.exists(sid) else f'{os.getenv("weight_root")}/{sid}'
+        person = sid if os.path.exists(sid) else f'{os.getenv("WEIGHT_ROOT")}/{sid}'
         logger.info(f"Loading: {person}")
 
         self.cpt = torch.load(person, map_location="cpu")
@@ -100,7 +100,7 @@ class VC:
         protect: float = 0.33,
         hubert_path: str | None = None,
     ):
-        hubert_path = os.getenv("hubert_path") if not hubert_path else hubert_path
+        hubert_path = os.getenv("HUBERT_PATH") if not hubert_path else hubert_path
 
         try:
             audio = load_audio(input_audio_path, 16000)

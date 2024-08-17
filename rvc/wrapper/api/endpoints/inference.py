@@ -26,7 +26,7 @@ def inference(
         ...,
         enum=[
             os.path.basename(file)
-            for file in glob.glob(f"{os.getenv('weight_root')}/*")
+            for file in glob.glob(f"{os.getenv('WEIGHT_ROOT')}/*")
         ],
     ),
     res_type: str = Query("blob", enum=["blob", "json"]),

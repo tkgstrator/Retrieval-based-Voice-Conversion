@@ -29,10 +29,10 @@ class UVR:
     ):
         infos = list()
         if model_name is None:
-            model_name = os.path.basename(glob(f"{os.getenv('weight_uvr5_root')}/*")[0])
+            model_name = os.path.basename(glob(f"{os.getenv('WEIGHT_UVR5_ROOT')}/*")[0])
 
         pre_fun = AudioPreprocess(
-            os.path.join(os.getenv("weight_uvr5_root"), model_name),  # + ".pth"
+            os.path.join(os.getenv("WEIGHT_UVR5_ROOT"), model_name),  # + ".pth"
             int(agg),
         )
 
