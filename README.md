@@ -126,7 +126,7 @@ curl -X 'POST' \
       -H 'accept: application/json' \
       -H 'Content-Type: multipart/form-data' \
       -F 'modelpath={model.pth}' \
-      -F 'input={input audio path}'
+      -F 'input_audio={input audio path}'
 ```
 
 ##### Get as json(include time)
@@ -136,34 +136,15 @@ curl -X 'POST' \
       -H 'accept: application/json' \
       -H 'Content-Type: multipart/form-data' \
       -F 'modelpath={model.pth}' \
-      -F 'input={input audio path}'
+      -F 'input_audio={input audio path}'
 ```
 
 ### Docker Usage
 
-Build and run via script:
+Build and run following command:
 
 ```bash
-./docker-run.sh
+docker compose up -d
 ```
 
-**Or** use manually:
-
-1. Build:
-
-   ```bash
-   docker build -t "rvc" .
-   ```
-
-2. Run:
-
-   ```bash
-   docker run -it \
-     -p 8000:8000 \
-     -v "${PWD}/assets/weights:/weights:ro" \
-     -v "${PWD}/assets/indices:/indices:ro" \
-     -v "${PWD}/assets/audios:/audios:ro" \
-     "rvc"
-   ```
-
-Notice assumption that weights, indices and input audios are stored in `current-directory/assets`
+Notice assumption that weights, indices and input audios are stored in `current-directory/assets/{indices,audios,weights}`
