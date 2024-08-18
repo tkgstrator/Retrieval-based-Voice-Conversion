@@ -6,14 +6,16 @@ services:
     ports:
       - 8000:8000
     environment:
-      WEIGHT_ROOT: /weights
-      WEIGHT_UVR5_ROOT: /assets/uvr5_weights
-      INDEX_ROOT: /indices
-      RMVPE_ROOT: /assets/rmvpe
-      HURBERT_PATH: /assets/hubert_base.pt
-      SAVE_UVR_PATH: /assets/uvr5_weights
-      PRETRAINED_MODEL: /assets/pretrained
+      AUDIO_ROOT: /home/vscode/app/assets/audios
+      HUBERT_PATH: /home/vscode/app/assets/hubert_base.pt
+      INDEX_ROOT: /home/vscode/app/assets/indices
+      PRETRAINED_MODEL: /home/vscode/app/assets/pretrained
+      RMVPE_ROOT: /home/vscode/app/assets/rmvpe
+      SAVE_UVR_PATH: /home/vscode/app/assets/uvr5_weights
+      SHA256_COMMIT_HASH: 88e42f0cb3662ddc0dd263a4814206ce96d53214
+      WEIGHT_ROOT: /home/vscode/app/assets/weights
+      WEIGHT_UVR5_ROOT: /home/vscode/app/assets/uvr5_weights
     volumes:
-      - ./assets/weights:/weights:ro
-      - ./assets/indices:/indices:ro
-      - ./assets/audios:/audios:ro
+      - ./assets/weights:/home/vscode/app/assets/weights:ro
+      - ./assets/indices:/home/vscode/app/assets/indices:ro
+      - ./assets/audios:/home/vscode/app/assets/audios:ro

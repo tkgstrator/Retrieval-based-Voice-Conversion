@@ -6,6 +6,7 @@ services:
     ports:
       - 8000:8000
     environment:
+      AUDIO_ROOT: assets/audios
       HUBERT_PATH: assets/hubert_base.pt
       INDEX_ROOT: assets/indices
       PRETRAINED_MODEL: assets/pretrained

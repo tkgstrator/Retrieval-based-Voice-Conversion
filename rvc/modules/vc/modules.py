@@ -88,7 +88,7 @@ class VC:
     def vc_inference(
         self,
         sid: int,
-        input_audio_path: Path,
+        input_audio: Path,
         f0_up_key: int = 0,
         f0_method: str = "rmvpe",
         f0_file: Path | None = None,
@@ -101,7 +101,7 @@ class VC:
         hubert_path: str | None = None,
     ):
         hubert_path = os.getenv("HUBERT_PATH") if not hubert_path else hubert_path
-
+        input_audio_path = os.getenv("AUDIO_ROOT") + "/" + input_audio.name
         try:
             audio = load_audio(input_audio_path, 16000)
             audio_max = np.abs(audio).max() / 0.95
